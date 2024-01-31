@@ -132,7 +132,7 @@ abstract class AbstractProduct
 
     public function setCreatedAt(?\DateTime $createdAt): AbstractProduct
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTime();
         return $this;
     }
 
@@ -143,7 +143,7 @@ abstract class AbstractProduct
 
     public function setUpdatedAt(?\DateTime $updatedAt): AbstractProduct
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = $updatedAt ? $updatedAt : new \DateTime();
         return $this;
     }
 
