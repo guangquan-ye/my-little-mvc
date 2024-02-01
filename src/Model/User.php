@@ -111,6 +111,7 @@ class User {
         $stmt->bindValue(':role', json_encode($this->getRole()), \PDO::PARAM_STR);
         $stmt->execute();
         $this->setId((int)$pdo->lastInsertId());
+        
         return $this;
     }
 
@@ -128,6 +129,19 @@ class User {
         $statement->bindValue(':role', $this->role);
         $statement->execute();
         return $this;
+    }
+
+    public function select(){
+
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $sql = "SELECT * FROM user WHERE email = :email";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':email', $this->getEmail(), \PDO::PARAM_STR);
+        $stmt->execute();
+        $results = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return $results;    
+
     }
 
 
