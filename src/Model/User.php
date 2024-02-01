@@ -108,7 +108,7 @@ class User {
         $stmt->bindValue(':fullname', $this->getFullname(), \PDO::PARAM_STR);
         $stmt->bindValue(':email', $this->getEmail(), \PDO::PARAM_STR);
         $stmt->bindValue(':password', $this->getPassword(), \PDO::PARAM_STR);
-        $stmt->bindValue(':role', $this->getRole(), \PDO::PARAM_STR);
+        $stmt->bindValue(':role', json_encode($this->getRole()), \PDO::PARAM_STR);
         $stmt->execute();
         $this->setId((int)$pdo->lastInsertId());
         return $this;
@@ -119,7 +119,7 @@ class User {
     public function update(){
         
         $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
-        $sql = "UPDATE user SET fullname = :fullname, email = :email, password = :password, role = :role, updated_at = :updated_at WHERE id = :id";
+        $sql = "UPDATE user SET fullname = :fullname, email = :email, password = :password, role = :role, WHERE id = :id";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':id', $this->id);
         $statement->bindValue(':fullname', $this->fullname);
