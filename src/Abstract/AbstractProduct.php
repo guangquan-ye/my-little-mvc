@@ -3,6 +3,7 @@
 namespace App\Abstract;
 
 use App\Model\Category;
+use DateTime;
 
 abstract class AbstractProduct
 {
@@ -127,12 +128,13 @@ abstract class AbstractProduct
 
     public function getCreatedAt(): ?\DateTime
     {
+
         return $this->createdAt;
     }
 
     public function setCreatedAt(?\DateTime $createdAt): AbstractProduct
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new DateTime();
         return $this;
     }
 

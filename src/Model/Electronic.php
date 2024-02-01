@@ -104,7 +104,7 @@ class Electronic extends AbstractProduct implements StockableInterface
             $products[] = new Electronic(
                 $result['id'],
                 $result['name'],
-                json_decode($result['photos']),
+                json_decode($result['photos'], true),
                 $result['price'],
                 $result['description'],
                 $result['quantity'],

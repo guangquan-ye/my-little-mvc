@@ -98,7 +98,7 @@ class Clothing extends AbstractProduct implements StockableInterface
         return new static(
             $result['id'],
             $result['name'],
-            json_decode($result['photos']),
+            json_decode($result['photos'], true),
             $result['price'],
             $result['description'],
             $result['quantity'],
@@ -122,7 +122,7 @@ class Clothing extends AbstractProduct implements StockableInterface
             $products[] = new static(
                 $result['id'],
                 $result['name'],
-                json_decode($result['photos']),
+                json_decode($result['photos'], true),
                 $result['price'],
                 $result['description'],
                 $result['quantity'],
