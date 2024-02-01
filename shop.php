@@ -1,6 +1,11 @@
 <?php
 require_once 'vendor/autoload.php';
+if(isset($_SESSION)){ 
+    session_start();
+}
 
+
+session_start();
 use App\Model\Category;
 use App\Model\Clothing;
 use App\Model\Electronic;
@@ -13,7 +18,14 @@ use App\Model\Electronic;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Shop</title>
+    <?php
+    if($_SESSION["user"]["isLogged"] == true){
+        ?>
+        <div> Hello <?= $_SESSION["user"]["fullname"] ?> you are connected!</div>
+    <?php
+    }
+    ?>
 </head>
 <body>
     

@@ -6,7 +6,13 @@ if(isset($_POST['register'])){
 
     $controller = new AuthenticationController();
 
-    $controller->registerController($_POST['fullname'], $_POST['email'], $_POST['password'], $_POST['role']);
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $role = [$_POST['role']];
+
+
+   $controller->registerController($fullname, $email, $password, $role);
 
 }
 
@@ -26,8 +32,6 @@ if(isset($_POST['register'])){
         <select name="role">
             <option value="ROLE_USER">ROLE_USER</option>
         </select>
-
- 
         <input type="submit"  name='register' value="register">
     </form>
 </body>
