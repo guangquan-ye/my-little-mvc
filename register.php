@@ -23,7 +23,11 @@ if(isset($_POST['register'])){
         <input type="text" name="fullname" placeholder="Fullname">
         <input type="email" name="email" placeholder="Email">
         <input type="password" name="password" placeholder="Password">
-        <input type="text"  name="role" placeholder="Role">
+        <select name="role">
+            <option value="ROLE_USER">ROLE_USER</option>
+        </select>
+
+ 
         <input type="submit"  name='register' value="register">
     </form>
 </body>
