@@ -44,7 +44,7 @@ var_dump($userInfo);
         <input type="password" name="password_conf">
 
         <label for="role">Role:</label>
-        <input type="text" name="role" value='["ROLE_USER"]' readonly>
+        <input type="text" name="role" value='<?= $userInfo["role"]?>' readonly>
 
         <button type="submit">Submit</button>
     </form>
