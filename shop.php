@@ -1,22 +1,28 @@
 <?php
 require_once 'vendor/autoload.php';
-if(isset($_SESSION)){ 
+if(!isset($_SESSION)){ 
     session_start();
 }
 
 
-session_start();
-use App\Model\Category;
 use App\Model\Clothing;
 use App\Model\Electronic;
 use App\Controller\ShopController;
 
 
-$shop = new ShopController();
+if(isset($_GET['page'])){
+    
+    var_dump($urlParam = $_GET["page"]);
+    $shop = new ShopController();
+    $paginated = $shop->index($urlParam);
+    var_dump($paginated);
+}
 
-$shop->index($_GET['page']);
+$electronic = new Electronic();
+$electLoop = $electronic->findAll();
 
-var_dump($_GET);
+$clothe = new Clothing();
+$clothLoop = $clothe->findAll();
 
 ?>
 <!DOCTYPE html>
@@ -44,26 +50,6 @@ var_dump($_GET);
 
 <?php
 
-$categ = new Category();
-// $categ->setName("clothing");
-// $categ->setDescription("clothing stuff");
-// $categ->setCreatedAt(new \DateTime());
-// $categ->create();
-
-
-$electronic = new Electronic();
-// $electronic->setBrand('huawei');
-// $electronic->setWarantyFee(20);
-// $electronic->setName('huawei P50');
-// $electronic->setPrice(1800);
-// $electronic->setDescription('Nothing to expect');
-// $electronic->setQuantity(220);
-// $electronic->setCategoryId(2);
-// $electronic->setCreatedAt(new \DateTime());
-// $electronic->setPhotos(['photo1', 'photo2']);
-// $electronic->create();
-
-$electLoop = $electronic->findAll();
 
 foreach($electLoop as $elec){
 
@@ -81,22 +67,6 @@ foreach($electLoop as $elec){
     echo "</div>";
 }
 
-$clothe = new Clothing();
-// $clothe->setSize('M');
-// $clothe->setColor('blue');
-// $clothe->setType("PullOver");
-// $clothe->setName('PullOver');
-// $clothe->setPrice(20);
-// $clothe->setDescription('PullOver');
-// $clothe->setQuantity(20);
-// $clothe->setCategoryId(1);
-// $clothe->setPhotos(['photo1', 'photo2']);
-// $clothe->setMaterialFee(20);
-// $clothe->setCreatedAt(new \DateTime());
-// // $clothe->create();
-
-
-$clothLoop = $clothe->findAll();
 
 foreach ($clothLoop as $cloth) {
     echo "<br>" . "<div  class='clothInfoContainer'>" ;

@@ -134,10 +134,7 @@ class User
         $statement->execute();
         return $this;
     }
-    public function updateProfile($email, $password, $fullname){
 
-        // Creer cette fonction pour Job09
-    }
 
     public function select(){
 
