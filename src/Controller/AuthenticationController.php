@@ -1,10 +1,14 @@
 <?php
+
 namespace App\Controller;
-session_start();    
+
+session_start();
 require_once 'vendor/autoload.php';
+
 use App\Model\User;
 
-class AuthenticationController{
+class AuthenticationController
+{
 
     protected ?string $fullname = null;
     protected ?string $email = null;
@@ -16,8 +20,7 @@ class AuthenticationController{
         ?string $email = null,
         ?string $password = null,
         ?array $role = null
-    )
-    {
+    ) {
         $this->fullname = $fullname;
         $this->email = $email;
         $this->password = $password;
@@ -54,7 +57,7 @@ class AuthenticationController{
     {
         $this->password = $password;
         return $this;
-    }   
+    }
 
     public function getRole(): ?array
     {
@@ -70,44 +73,44 @@ class AuthenticationController{
 
 
 
-public function registerController($fullname, $email, $password, $role){
-        
-    $fullname = htmlspecialchars($fullname);
-    $email = htmlspecialchars($email);
-    $password = password_hash($password, PASSWORD_DEFAULT);
-    
-    $user = new User();
-    $user->setFullname($fullname);
-    $user->setEmail($email);
-    $user->setPassword($password);
-    $user->setRole($role);
+    public function registerController($fullname, $email, $password, $role)
+    {
 
-    $userInfo = $user->select();
+        $fullname = htmlspecialchars($fullname);
+        $email = htmlspecialchars($email);
+        $password = password_hash($password, PASSWORD_DEFAULT);
 
-    if($userInfo){
-        echo "User already exist";
-        exit();
+        $user = new User();
+        $user->setFullname($fullname);
+        $user->setEmail($email);
+        $user->setPassword($password);
+        $user->setRole($role);
+
+        $userInfo = $user->select();
+
+        if ($userInfo) {
+            echo "User already exist";
+            exit();
+        } else {
+            $user->create();
+            echo "User created";
+        }
     }
-    else{
-        $user->create();
-        echo "User created";
-    }
 
-}
+    public function loginController($email, $password)
+    {
 
-public function loginController($email, $password){
-        
-    $email = htmlspecialchars($email);
-    $password = htmlspecialchars($password);
+        $email = htmlspecialchars($email);
+        $password = htmlspecialchars($password);
 
         $user = new User();
         $user->setEmail($email);
         $user->setPassword($password);
         $userInfo = $user->select();
-        
-        if($user->select()){
-            
-            if(password_verify($password, $userInfo["password"])){
+
+        if ($user->select()) {
+
+            if (password_verify($password, $userInfo["password"])) {
                 echo "Login success";
 
                 // $_SESSION["user"]['isLogged'] = true;
@@ -126,33 +129,41 @@ public function loginController($email, $password){
                 ];
 
                 header('Location: shop.php');
-                
+
                 var_dump($_SESSION["user"]);
-                
-            }
-            else{
+            } else {
                 echo "Login failed";
             }
-        }
-        else{
+        } else {
             echo "Login failed";
         }
-        
     }
-    
-    
+
+
+    public function profile()
+    {
+        if (isset($_SESSION["user"])) {
+            if ($_SESSION["user"]["isLogged"] == true) {
+                $user = new User();
+                $userInfo = $user->findOneById($_SESSION["user"]["id"]);
+                
+                return $userInfo;
+            } 
+        }
+        else{
+            header('Location: shop.php');
+
+        }
+    }
 }
 
 
 
 
- 
 
- 
+
+
 //  else{
 //     echo "Probleme avec la creation de l'utilisateur";
 //     exit();
 //  }
-
-
-?>

@@ -79,15 +79,16 @@ class User {
         return $this;
     }
 
-    public function findOneById(int $id): static|false
+    public function findOneById(int $id): array
     {
         $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
         $sql = "SELECT * FROM user WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
         $stmt->execute();
-        $stmt->setFetchMode(\PDO::FETCH_CLASS, static::class);
-        return $stmt->fetch();
+        $results = $stmt->fetch(\PDO::FETCH_ASSOC);
+        
+        return $results;
     }
 
     public function findAll(): array
@@ -143,6 +144,7 @@ class User {
         return $results;    
 
     }
+
 
 
 }
