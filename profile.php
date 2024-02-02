@@ -7,6 +7,16 @@ $authController = new AuthenticationController;
 $userInfo = $authController->profile();
 var_dump($userInfo);
 
+
+if(isset($_POST['form_submit'])){
+    $id = $_SESSION['user']['id'];
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $role = [$_POST['role']];
+
+    $authController->updateProfile($id, $fullname, $email, $password, $role);
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,32 +31,27 @@ var_dump($userInfo);
 <h1>User Information</h1>
     
     <ul>
-        <li><strong>ID:</strong> <?= $userInfo["id"]?></li>
         <li><strong>Fullname:</strong><?= $userInfo["fullname"]?></li>
         <li><strong>Email:</strong> <?= $userInfo["email"]?></li>
         <li><strong>Role:</strong> <?= $userInfo["role"]?></li>
     </ul>
 
     <form  method="post">
-        <label for="id">ID:</label>
-        <input type="text" name="id" value="<?= $userInfo["id"]?>" readonly>
-
+        
         <label for="fullname">Fullname:</label>
-        <input type="text" name="fullname" value="<?= $userInfo["fullname"]?>" readonly>
+        <input type="text" name="fullname" value="<?= $userInfo["fullname"]?>" >
 
         <label for="email">Email:</label>
-        <input type="email"  name="email" value="<?= $userInfo["email"]?>" readonly>
+        <input type="email"  name="email" value="<?= $userInfo["email"]?>" >
 
         <label for="password">Password:</label>
         <input type="password" name="password">
 
-        <label for="password_conf">Password confirmation:</label>
-        <input type="password" name="password_conf">
-
         <label for="role">Role:</label>
-        <input type="text" name="role" value='<?= $userInfo["role"]?>' reado    nly>
+        <input type="text" name="role" value='<?= $userInfo["role"]?>'>
 
-        <button type="submit">Submit</button>
+        <button type="submit" name="form_submit">Submit</button>
     </form>
+
 </body>
 </html>

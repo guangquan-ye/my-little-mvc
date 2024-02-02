@@ -9,8 +9,14 @@ session_start();
 use App\Model\Category;
 use App\Model\Clothing;
 use App\Model\Electronic;
+use App\Controller\ShopController;
 
 
+$shop = new ShopController();
+
+$shop->index($_GET['page']);
+
+var_dump($_GET);
 
 ?>
 <!DOCTYPE html>
@@ -19,6 +25,7 @@ use App\Model\Electronic;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
+    <a href="shop.php?page=1">Home</a>
     <?php
     if(isset($_SESSION["user"])){
         if($_SESSION["user"]["isLogged"] == true){

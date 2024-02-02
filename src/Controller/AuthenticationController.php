@@ -140,20 +140,41 @@ class AuthenticationController
     }
 
 
-    public function profile()
-    {
+    public function profile(){
         if (isset($_SESSION["user"])) {
             if ($_SESSION["user"]["isLogged"] == true) {
                 $user = new User();
-                $userInfo = $user->findOneById($_SESSION["user"]["id"]);
-                
-                return $userInfo;
+                $boolean = $user->findOneByEmail($_SESSION["user"]["id"]);
+
+                if($boolean){
+
+                    $userInfo = $user->profilInfo($_SESSION["user"]["id"]);
+                    return $userInfo;
+                }
+
             } 
+        
         }
         else{
             header('Location: shop.php');
 
         }
+
+    }
+
+    public function updateProfile($id, $fullname, $email, $password, $role){
+        $id = htmlspecialchars($id);
+        $fullname = htmlspecialchars($fullname);
+        $email = htmlspecialchars($email);
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        
+        $user = new User();
+        $user->setId($id);
+        $user->setFullname($fullname);
+        $user->setEmail($email);
+        $user->setPassword($password);
+        $user->setRole($role);
+        $user->update();
     }
 }
 

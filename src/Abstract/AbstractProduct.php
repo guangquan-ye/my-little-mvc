@@ -151,7 +151,7 @@ abstract class AbstractProduct
 
     public function getCategory(): Category|false
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'root');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
         $sql = "SELECT * FROM category WHERE id = :id";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':id', $this->category_id);
@@ -170,9 +170,9 @@ abstract class AbstractProduct
         return false;
     }
 
-    public function findOneById(int $id): static|false
+    public function findOneByEmail(int $id): static|false
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'root');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
         $sql = "SELECT * FROM product WHERE id = :id";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':id', $id);
@@ -197,7 +197,7 @@ abstract class AbstractProduct
 
     public function findAll(): array
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'root');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
         $sql = "SELECT * FROM product";
         $statement = $pdo->prepare($sql);
         $statement->execute();
@@ -223,7 +223,7 @@ abstract class AbstractProduct
 
     public function create(): static
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'root');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
         $sql = "INSERT INTO product (name, photos, price, description, quantity, category_id, created_at, updated_at) VALUES (:name, :photos, :price, :description, :quantity, :category_id, :created_at, :updated_at)";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':name', $this->name);
@@ -241,7 +241,7 @@ abstract class AbstractProduct
 
     public function update(): static
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'root');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
         $sql = "UPDATE product SET name = :name, photos = :photos, price = :price, description = :description, quantity = :quantity, category_id = :category_id, updated_at = :updated_at WHERE id = :id";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':id', $this->id);
@@ -254,6 +254,11 @@ abstract class AbstractProduct
         $statement->bindValue(':updated_at', (new \DateTime())->format('Y-m-d H:i:s'));
         $statement->execute();
         return $this;
+    }
+
+    public function findPaginated($page){
+
+        
     }
 
 }

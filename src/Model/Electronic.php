@@ -90,7 +90,7 @@ class Electronic extends AbstractProduct implements StockableInterface
 
     public function findAll(): array
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'root');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
 
         $statement = $pdo->prepare('SELECT * FROM product INNER JOIN electronic ON product.id = electronic.product_id');
 

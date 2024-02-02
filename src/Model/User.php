@@ -72,7 +72,7 @@ class User
         return $this;
     }
 
-    public function findOneById(int $id): array{
+    public function findOneByEmail(int $id){
         $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
         $sql = "SELECT * FROM user WHERE id = :id";
         $stmt = $pdo->prepare($sql);
@@ -82,6 +82,19 @@ class User
 
         return $results;
     }
+
+    public function profilInfo($id){
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $sql = "SELECT `fullname`, `email`, `role` FROM user WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, \PDO::PARAM_STR);
+        $stmt->execute();
+        $results = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return $results;
+    } 
+        
+    
 
     public function findAll(): array{
         $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
@@ -111,13 +124,13 @@ class User
     public function update(){
 
         $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
-        $sql = "UPDATE user SET fullname = :fullname, email = :email, password = :password, role = :role, WHERE id = :id";
+        $sql = "UPDATE user SET fullname = :fullname, email = :email, password = :password, role = :role WHERE id = :id";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':id', $this->id);
         $statement->bindValue(':fullname', $this->fullname);
         $statement->bindValue(':email', $this->email);
         $statement->bindValue(':password', $this->password);
-        $statement->bindValue(':role', $this->role);
+        $statement->bindValue(':role', json_encode($this->role));
         $statement->execute();
         return $this;
     }

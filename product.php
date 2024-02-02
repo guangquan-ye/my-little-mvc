@@ -6,6 +6,26 @@ use App\Model\Clothing;
 use App\Model\Electronic;
 
 
+
+// $clothing4 = new Clothing();
+// $clothing4->setName('Athleisure Tech Leggings');
+// $clothing4->setPrice(45.99);
+// $clothing4->setMaterialFee(8);
+// $clothing4->setSize('S');
+// $clothing4->setColor('pink');
+// $clothing4->setType('Leggings');
+// $clothing4->setDescription('Achieve comfort and style with our athleisure tech leggings');
+// $clothing4->setQuantity(100);
+// $clothing4->setCategoryId(1);
+// $clothing4->setCreatedAt(new \DateTime());
+// $clothing4->setPhotos(['https://example.com/tech-leggings1.jpg', 'https://example.com/tech-leggings2.jpg']);
+// $clothing4->create();
+
+
+
+
+
+
 if (isset($_GET["id_product"])) {
     
     $id_product = intval($_GET["id_product"]); 
@@ -17,7 +37,6 @@ if (isset($_GET["id_product"])) {
             $electronic = new Electronic();
             if ($findElec = $electronic->findOneById($id_product)) {
 
-                // var_dump($findElec);
                 echo "<br>" . "<div  class='elecInfoContainer'>" ;
                 echo "<div class='elecInfo'>". "Electronic item name:" . $findElec->getName() . "</div>" ;
                 echo "<div class='elecInfo' >" . "Electronic item price:" . $findElec->getPrice() . "</div>";
