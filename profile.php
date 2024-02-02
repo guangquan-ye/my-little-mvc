@@ -27,7 +27,7 @@ var_dump($userInfo);
         <li><strong>Role:</strong> <?= $userInfo["role"]?></li>
     </ul>
 
-    <form action="process_form.php" method="post">
+    <form  method="post">
         <label for="id">ID:</label>
         <input type="text" name="id" value="<?= $userInfo["id"]?>" readonly>
 
@@ -44,7 +44,7 @@ var_dump($userInfo);
         <input type="password" name="password_conf">
 
         <label for="role">Role:</label>
-        <input type="text" name="role" value='<?= $userInfo["role"]?>' readonly>
+        <input type="text" name="role" value='<?= $userInfo["role"]?>' reado    nly>
 
         <button type="submit">Submit</button>
     </form>
