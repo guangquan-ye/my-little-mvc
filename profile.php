@@ -21,10 +21,32 @@ var_dump($userInfo);
 <h1>User Information</h1>
     
     <ul>
-        <li><strong>ID:</strong> 9</li>
-        <li><strong>Fullname:</strong> pap</li>
-        <li><strong>Email:</strong> a@b.c</li>
-        <li><strong>Role:</strong> ["ROLE_USER"]</li>
+        <li><strong>ID:</strong> <?= $userInfo["id"]?></li>
+        <li><strong>Fullname:</strong><?= $userInfo["fullname"]?></li>
+        <li><strong>Email:</strong> <?= $userInfo["email"]?></li>
+        <li><strong>Role:</strong> <?= $userInfo["role"]?></li>
     </ul>
+
+    <form action="process_form.php" method="post">
+        <label for="id">ID:</label>
+        <input type="text" name="id" value="<?= $userInfo["id"]?>" readonly>
+
+        <label for="fullname">Fullname:</label>
+        <input type="text" name="fullname" value="<?= $userInfo["fullname"]?>" readonly>
+
+        <label for="email">Email:</label>
+        <input type="email"  name="email" value="<?= $userInfo["email"]?>" readonly>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password">
+
+        <label for="password_conf">Password confirmation:</label>
+        <input type="password" name="password_conf">
+
+        <label for="role">Role:</label>
+        <input type="text" name="role" value='["ROLE_USER"]' readonly>
+
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
