@@ -220,6 +220,7 @@ abstract class AbstractProduct
         return $results;
     }
 
+
     public function create(): static
     {
         $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');

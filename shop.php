@@ -20,10 +20,15 @@ use App\Model\Electronic;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
     <?php
-    if($_SESSION["user"]["isLogged"] == true){
-        ?>
-        <div> Hello <?= $_SESSION["user"]["fullname"] ?> you are connected!</div>
-    <?php
+    if(isset($_SESSION["user"])){
+        if($_SESSION["user"]["isLogged"] == true){
+            ?>
+            <div> Hello <?= $_SESSION["user"]["fullname"] ?> you are connected!</div>
+        <?php
+        }
+    }
+    else{
+        echo "You are not connected";
     }
     ?>
 </head>
