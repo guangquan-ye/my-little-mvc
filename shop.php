@@ -23,6 +23,12 @@ if(isset($_GET['page'])){
     $shop = new ShopController();
     $paginated = $shop->index($urlParam);
     var_dump($paginated);
+
+$array2 = ["fruits" =>"banane", "outils" => "tournevis"]; 
+
+$array2['fruits'] .= ', orange';
+
+var_dump($array2);
 }
 // -----------------------------------------Controller call------------------------------------------------
 // --------------------------------------------------------------------------------------------------------

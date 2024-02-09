@@ -108,7 +108,7 @@ class Clothing extends AbstractProduct implements StockableInterface
             $result['size'],
             $result['color'],
             $result['type'],
-        );
+        );  
     }
 
     public function findAll(): array
