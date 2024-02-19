@@ -4,16 +4,43 @@ require_once 'vendor/autoload.php';
 use App\Model\Product;
 
 
-class ShopController{
+class ShopController {
+
+
+
 
     public function index($page){
-
-
         $products = new Product();
-        $products = $products->findPaginated($page);
-
+        $itemPerPage = 3;
+        $totalPages = round(ceil($products->findPaginatedCount() / $itemPerPage));
+    
+        $productz = $products->findPaginated($page, $itemPerPage);
+        $productsArray = []; // Créer un tableau pour stocker les produits
+    
+        foreach ($productz as $product) {
+            $productObj = new Product(); // Créer un nouvel objet Product pour chaque produit paginé
+            $productObj
+                ->setId($product['id'])
+                ->setName($product['name'])
+                ->setPhotos([$product["photos"]])
+                ->setPrice($product['price'])
+                ->setDescription($product['description'])
+                ->setQuantity($product['quantity'])
+                ->setCategoryId($product["category_id"]);
+    
+            $productsArray[] = $productObj; // Ajouter l'objet Product au tableau
+        }
+        
+        $result = [
+            'products' => $productsArray,
+            'totalPages' => $totalPages
+        ];
+        return $result;
     }
-
+    
 }
+
+
+
 
 ?>
