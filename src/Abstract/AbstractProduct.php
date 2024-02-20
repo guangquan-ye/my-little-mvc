@@ -256,6 +256,11 @@ abstract class AbstractProduct
         return $this;
     }
 
+    public function findPaginated($page, $itemPerPage){
 
 
-}
+
+        
+    }
+
+}}
