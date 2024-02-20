@@ -45,7 +45,7 @@ foreach ($paginated['products'] as $product) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
-    <a href="shop.php?page=1">Home</a>
+    <a href="login.php">Home</a>
     <?php
     if (isset($_SESSION["user"])) {
         if ($_SESSION["user"]["isLogged"] == true) {
@@ -63,6 +63,8 @@ foreach ($paginated['products'] as $product) {
 
 
     <?php
+
+    
 // --------------------------------- Category Creation ------------------------
     // $categ = new Category();
     // $categ->setName("clothing");

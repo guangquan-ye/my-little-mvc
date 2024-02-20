@@ -2,6 +2,8 @@
 namespace App\Controller;
 require_once 'vendor/autoload.php';
 use App\Model\Product;
+use App\Model\Electronic;
+use App\Model\Clothing;
 
 
 class ShopController {
@@ -43,6 +45,48 @@ class ShopController {
 
         
             if(isset($_SESSION["user"]) && $_SESSION["user"]['isLogged'] === true){
+
+
+
+                if($productType === "electronic"){
+                    $productElec = new Electronic();
+                    
+                    $productElec ->findOneById($idProduct);
+                    
+                    $product = new Product();
+                    $product
+                    ->setId($productElec["id"])
+                    ->setName($productElec['name'])
+                    ->setPhotos([$productElec["photos"]])
+                    ->setPrice($productElec['price'])
+                    ->setDescription($productElec['description'])
+                    ->setQuantity($productElec['quantity'])
+                    ->setCategoryId($productElec["category_id"]);
+
+                    
+                    return $product;
+                }
+                elseif($productType === "clothing"){
+                    $productCloth = new Clothing();
+                    $productCloth ->findOneById($idProduct);
+
+                    $product = new Product();
+                    $product
+                    ->setId($productCloth["id"])
+                    ->setName($productCloth['name'])
+                    ->setPhotos([$productCloth["photos"]])
+                    ->setPrice($productCloth['price'])
+                    ->setDescription($productCloth['description'])
+                    ->setQuantity($productCloth['quantity'])
+                    ->setCategoryId($productCloth["category_id"]);
+                    
+                    return $product;
+                }else{
+                    return "Le produit n'existe pas";
+                }
+
+
+
 
             }
     }
