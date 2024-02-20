@@ -41,57 +41,65 @@ class ShopController {
     }
 
 
-    public function showProduct($idProduct, $productType){
+
+    // Nico  +1 2
+    // Jeremy 3
+    // Guangquan 4 
+    // Anais Labit 5
+    // Corentin 6
+    // Anais pas Labit 7
+    // Herve  8 
+    // Armin 9 
+    // Julie 10
+    // Thomas 11
+    // Mehdi 12 
+
+
+    public function showProduct($productId, $productType){
 
         
-            if(isset($_SESSION["user"]) && $_SESSION["user"]['isLogged'] === true){
+            // if(isset($_SESSION["user"]) && $_SESSION["user"]['isLogged'] === true){
 
-
-
-                if($productType === "electronic"){
+                if($productType == 1){
                     $productElec = new Electronic();
                     
-                    $productElec ->findOneById($idProduct);
+                    $setInfo = $productElec ->findOneById($productId);
                     
                     $product = new Product();
-                    $product
-                    ->setId($productElec["id"])
-                    ->setName($productElec['name'])
-                    ->setPhotos([$productElec["photos"]])
-                    ->setPrice($productElec['price'])
-                    ->setDescription($productElec['description'])
-                    ->setQuantity($productElec['quantity'])
-                    ->setCategoryId($productElec["category_id"]);
+                    $productInfo = $product
+                    ->setId($productElec->getId())
+                    ->setName($productElec->getName())
+                    ->setPhotos([$productElec->getPhotos()])
+                    ->setPrice($productElec->getPrice())
+                    ->setDescription($productElec->getDescription())
+                    ->setQuantity($productElec->getQuantity())
+                    ->setCategoryId($productElec->getCategoryId());
 
-                    
-                    return $product;
+                    return $setInfo;
                 }
-                elseif($productType === "clothing"){
+                elseif($productType == 2){
                     $productCloth = new Clothing();
-                    $productCloth ->findOneById($idProduct);
+                   $setInfo =  $productCloth ->findOneById($productId);
+                    // var_dump($setInfo, "toto");
 
                     $product = new Product();
-                    $product
-                    ->setId($productCloth["id"])
-                    ->setName($productCloth['name'])
-                    ->setPhotos([$productCloth["photos"]])
-                    ->setPrice($productCloth['price'])
-                    ->setDescription($productCloth['description'])
-                    ->setQuantity($productCloth['quantity'])
-                    ->setCategoryId($productCloth["category_id"]);
+                    $productInfo = $product
+                    ->setId($setInfo->getId())
+                    ->setName($setInfo->getName())
+                    ->setPhotos([$setInfo->getPhotos()])
+                    ->setPrice($setInfo->getPrice())
+                    ->setDescription($setInfo->getDescription())
+                    ->setQuantity($setInfo->getQuantity())
+                    ->setCategoryId($setInfo->getCategoryId());
                     
-                    return $product;
+                    return $productInfo;
                 }else{
                     return "Le produit n'existe pas";
                 }
-
-
-
-
             }
     }
     
-}
+// }
 
 
 

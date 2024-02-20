@@ -15,26 +15,6 @@ use App\Model\Electronic;
 use App\Controller\ShopController;
 
 
-var_dump($_SESSION);
-// --------------------------------- Item display by page  ------------------------
-
-
-$shop = new ShopController();
-$currentPage = $_GET['page'];
-$paginated = $shop->index($currentPage);
-
-foreach ($paginated['products'] as $product) {
-    echo "<br>" . "<div  class='truc'>";
-    echo "<div class='trucInfo'>" . "item name:" . $product->getName() . "</div>";
-    echo "<div class='trucInfo' >" . " item price:" . $product->getPrice() . "</div>";
-    echo "<div class='trucInfo' >" . "item description:" . $product->getDescription() . "</div>";
-    echo "<div class='trucInfo' >" . "item quantity:" . $product->getQuantity() . "</div>";
-    echo "<div class='trucInfo' >" . "item id category:" . $product->getCategoryId() . "</div>";
-
-    echo "</div>";
-}
-
-// --------------------------------- Item display by page  ------------------------
 
 
 ?>
@@ -62,7 +42,32 @@ foreach ($paginated['products'] as $product) {
 <body>
 
 
+
+
     <?php
+var_dump($_SESSION);
+// --------------------------------- Item display by page  ------------------------
+
+
+$shop = new ShopController();
+$currentPage = $_GET['page'];
+$paginated = $shop->index($currentPage);
+
+foreach ($paginated['products'] as $product) {
+    echo "<br>" . "<div  class='truc'>";
+    echo "<div class='trucInfo'>" . "item name:" . $product->getName() . "</div>";
+    echo "<div class='trucInfo' >" . " item price:" . $product->getPrice() . "</div>";
+    echo "<div class='trucInfo' >" . "item description:" . $product->getDescription() . "</div>";
+    echo "<div class='trucInfo' >" . "item quantity:" . $product->getQuantity() . "</div>";
+    echo "<div class='trucInfo' >" . "item id category:" . $product->getCategoryId() . "</div>";
+    echo "<a href='/my-little-mvc/product.php?productId=" . $product->getId() ."&productType=".$product->getCategoryId(). "'>Voir détails du produit</a>";
+    echo "</div>";
+}
+
+// --------------------------------- Item display by page  ------------------------
+
+
+
 
     
 // --------------------------------- Category Creation ------------------------
@@ -152,7 +157,7 @@ foreach ($paginated['products'] as $product) {
 <!-- --------------------------------- Pagination  ------------------------ -->
 
 
-    <div class="pagination">
+    <br><div class="pagination">
     <?php if ($currentPage > 1): ?>
         <a href="/my-little-mvc/shop.php?page=<?php echo ($currentPage - 1); ?>">&laquo; Précédent</a>
     <?php endif; ?>
