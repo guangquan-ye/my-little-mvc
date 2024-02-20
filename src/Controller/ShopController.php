@@ -37,6 +37,15 @@ class ShopController {
         ];
         return $result;
     }
+
+
+    public function showProduct($idProduct, $productType){
+
+        
+            if(isset($_SESSION["user"]) && $_SESSION["user"]['isLogged'] === true){
+
+            }
+    }
     
 }
 

@@ -13,6 +13,10 @@ use App\Model\Electronic;
 use App\Controller\ShopController;
 
 
+var_dump($_SESSION);
+// --------------------------------- Item display by page  ------------------------
+
+
 $shop = new ShopController();
 $currentPage = $_GET['page'];
 $paginated = $shop->index($currentPage);
@@ -27,6 +31,9 @@ foreach ($paginated['products'] as $product) {
 
     echo "</div>";
 }
+
+// --------------------------------- Item display by page  ------------------------
+
 
 ?>
 <!DOCTYPE html>
@@ -54,12 +61,14 @@ foreach ($paginated['products'] as $product) {
 
 
     <?php
-
+// --------------------------------- Category Creation ------------------------
     // $categ = new Category();
     // $categ->setName("clothing");
     // $categ->setDescription("clothing stuff");
     // $categ->setCreatedAt(new \DateTime());
     // $categ->create();
+
+    // --------------------------------- Category Creation ------------------------
 
 
     // $electronic = new Electronic();
@@ -92,6 +101,9 @@ foreach ($paginated['products'] as $product) {
     //     echo "</div>";
     // }
 
+
+    // --------------------------------- Clothing Creation ------------------------
+
     // $clothe = new Clothing();
     // $clothe->setSize('M');
     // $clothe->setColor('blue');
@@ -105,6 +117,11 @@ foreach ($paginated['products'] as $product) {
     // $clothe->setMaterialFee(20);
     // $clothe->setCreatedAt(new \DateTime());
     // // $clothe->create();
+
+// --------------------------------- clothing Creation ------------------------
+
+
+// --------------------------------- Clothe display ------------------------
 
 
     // $clothLoop = $clothe->findAll();
@@ -124,7 +141,11 @@ foreach ($paginated['products'] as $product) {
     //     echo "</div>";
     // }
 
+    // --------------------------------- Clothe display ------------------------
+
     ?>
+
+<!-- --------------------------------- Pagination  ------------------------ -->
 
 
     <div class="pagination">
@@ -139,6 +160,9 @@ foreach ($paginated['products'] as $product) {
     <?php if ($currentPage < $paginated['totalPages']): ?>
         <a href="/my-little-mvc/shop.php?page=<?php echo ($currentPage + 1); ?>">Suivant &raquo;</a>
     <?php endif; ?>
+
+    <!-- --------------------------------- Pagination  ------------------------ -->
+
 </div>
 
 </body>
