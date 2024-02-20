@@ -163,6 +163,8 @@ foreach ($paginated['products'] as $product) {
 
     <!-- --------------------------------- Pagination  ------------------------ -->
 
+    
+
 </div>
 
 </body>
