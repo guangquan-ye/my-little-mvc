@@ -185,4 +185,21 @@ class Electronic extends AbstractProduct implements StockableInterface
         return $this;
     }
 
+    public function existProduct($idCart, $idProduct)
+    {
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+
+        $statement = $pdo->prepare('SELECT * FROM detail WHERE id_cart = :idCart AND id_product = :idProduct');
+
+        $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
+        $statement->bindParam(':idProduct', $idProduct, \PDO::PARAM_INT);
+
+        $statement->execute();
+
+        $result = $statement->fetch(\PDO::FETCH_ASSOC);
+
+        return $result;
+    }   
+
+
 }

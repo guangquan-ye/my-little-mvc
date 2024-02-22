@@ -26,6 +26,17 @@ class Product extends AbstractProduct{
 
         return $result["total"];
     }
-    
+    public function existCart($idUser){
+
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $statement = $pdo->prepare('SELECT * FROM cart WHERE id_user = :idUser');
+        $statement->bindParam(':idUser', $idUser, \PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetch(\PDO::FETCH_ASSOC);
+
+        return $result;
+
+
+    }
 
 }

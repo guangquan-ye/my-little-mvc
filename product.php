@@ -1,10 +1,6 @@
 <?php
 require_once 'vendor/autoload.php';
-
-use App\Model\Category;
-use App\Model\Clothing;
-use App\Model\Electronic;
-use App\Model\Product;
+session_start();
 use App\Controller\ShopController;
 
 
@@ -14,7 +10,16 @@ $productType = $_GET['productType'];
 $product = new ShopController();
 $productInfo = $product->showProduct($productId, $productType);
 
-var_dump($productInfo);
+
+if(isset($_POST["productQuantity"])){
+
+
+    $quantity = $_POST["productQuantity"];
+    $userId = $_SESSION["user"]["id"];
+    $productId = $_GET['productId'];
+
+    $product->addProductToCart($productId, $userId, $quantity, $productType);
+} 
 
 
 
@@ -30,6 +35,12 @@ var_dump($productInfo);
 </head>
 
 <body>
+
+<form method="post">
+    <label for="productQuantity">Nombre de produits:</label>
+    <input type="number" id="productQuantity" name="productQuantity">
+    <input type="submit" value="Valider">
+</form>
 
 
 
