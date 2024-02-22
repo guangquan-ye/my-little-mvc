@@ -204,6 +204,15 @@ class Electronic extends AbstractProduct implements StockableInterface
     public function updateProductCart($idCart, $idProduct, $quantity){
 
         $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $statement = $pdo->prepare('SELECT `quantity` FROM `detail` WHERE `id_cart`=:idCart');
+        $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
+        $statement->execute();
+        $quantityBdd = $statement->fetch(\PDO::FETCH_ASSOC);
+
+        $quantity = $quantityBdd['quantity'] + $quantity;
+
+        
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
         $statement = $pdo->prepare('UPDATE `detail` SET `id_product`=:idProduct,`quantity`=:quantity WHERE `id_cart`=:idCart');
         $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
         $statement->bindParam(':idProduct', $idProduct, \PDO::PARAM_INT);
@@ -223,6 +232,25 @@ public function insertProductCart($idCart,  $quantity, $idProduct){
 
     $statement->execute();
 
+}
+
+public function checkStock($idCart, $idProduct) {
+    $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+    
+    $statement = $pdo->prepare('SELECT SUM(quantity) AS total_quantity FROM detail WHERE id_cart = :idCart  AND id_product = :idProduct');
+    $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
+    $statement->bindParam('idProduct', $idProduct, \PDO::PARAM_INT);
+    $statement->execute();
+    $result = $statement->fetch(\PDO::FETCH_ASSOC);
+    $totalQuantityInCart = $result['total_quantity'];
+
+    $statement = $pdo->prepare('SELECT SUM(quantity) AS total_stock FROM product WHERE id = :idProduct ');
+    $statement->bindParam(':idProduct', $idProduct, \PDO::PARAM_INT);
+    $statement->execute();
+    $result = $statement->fetch(\PDO::FETCH_ASSOC);
+    $totalStock = $result['total_stock'];
+
+    return $totalQuantityInCart <= $totalStock;
 }
 
     

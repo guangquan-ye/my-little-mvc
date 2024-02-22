@@ -102,31 +102,36 @@ class ShopController
         }
     }
 
-    public function addProductToCart($productId, $userId, $quantity, $productType){
+    public function addProductToCart($productId, $userId, $quantity, $productType)
+    {
 
         $cart = new Cart();
         $cartStatus = $cart->cartStatus($userId);
-        
+
         var_dump($cartStatus);
-        
+
         if ($cartStatus != false) {
-            
+
             $cart->setId($cartStatus['id'])->setIdUser($userId)->setQuantity($quantity);
 
             if ($productType == 1) {
-                $product = new Electronic($productId, $userId   );
+                $product = new Electronic($productId, $userId);
                 $productInfos = $product->findOneById($productId);
                 var_dump($productInfos);
 
                 $productInfoQty = $productInfos->getQuantity();
+                var_dump($productInfoQty);
 
-                if ($productInfoQty >= $quantity) {
+                if ($product->checkStock($cart->getId(), $productId)){
                     $cartInfo = $cart->cartStatus($userId);
-                    if ($product->existProduct(intval($cartInfo["id"]),intval($productId))) {
+                    if ($product->existProduct(intval($cartInfo["id"]), intval($productId))) {
                         $product->updateProductCart($cartInfo["id"], $productId, $quantity);
-                    }else{
+                    } else {
                         $product->insertProductCart($cartInfo["id"], $quantity, $productId);
                     }
+                }
+                else{
+                     var_dump("Pas assez de stock");
                 }
             }
 
@@ -140,13 +145,13 @@ class ShopController
                     // $product->addToCart($productId, $userId, $quantity);
                 }
             }
-        }else{
+        } else {
 
             $cart = new Cart();
             $cart->createCart($userId);
             $cartInfo = $cart->cartStatus($userId);
             $cartId = $cartInfo["id"];
-            $cart->createDetail($cartId,$productId,$quantity);
+            $cart->createDetail($cartId, $productId, $quantity);
 
             var_dump($cartInfo);
         }
