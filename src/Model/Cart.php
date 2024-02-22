@@ -87,7 +87,7 @@ class Cart
         return $this;
     }
 
-    public function existCart($idUser){
+    public function cartStatus($idUser){
 
         $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
         $statement = $pdo->prepare('SELECT * FROM cart WHERE id_user = :idUser');
@@ -124,16 +124,16 @@ public function createCart($idUser){
         $statement->execute();
     }
 
-    public function addToCart($idCart, $idProduct, $quantity){
+//     public function addToCart($idCart, $idProduct, $quantity){
 
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
-        $statement = $pdo->prepare('UPDATE `detail` SET `id_product`=:idProduct,`quantity`=:quantity WHERE `id_cart`=:idCart');
-        $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
-        $statement->bindParam(':idProduct', $idProduct, \PDO::PARAM_INT);
-        $statement->bindParam(':quantity', $quantity, \PDO::PARAM_INT);
+//         $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+//         $statement = $pdo->prepare('UPDATE `detail` SET `id_product`=:idProduct,`quantity`=:quantity WHERE `id_cart`=:idCart');
+//         $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
+//         $statement->bindParam(':idProduct', $idProduct, \PDO::PARAM_INT);
+//         $statement->bindParam(':quantity', $quantity, \PDO::PARAM_INT);
 
-        $statement->execute();
+//         $statement->execute();
     
-}
+// }
 
 }

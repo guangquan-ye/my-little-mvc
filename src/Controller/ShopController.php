@@ -102,32 +102,30 @@ class ShopController
         }
     }
 
-    public function addProductToCart($productId, $userId, $quantity, $productType)
-    {
+    public function addProductToCart($productId, $userId, $quantity, $productType){
 
         $cart = new Cart();
-        $exist = $cart->existCart($userId);
+        $cartStatus = $cart->cartStatus($userId);
         
-        var_dump($exist);
+        var_dump($cartStatus);
         
-        if ($exist != false) {
+        if ($cartStatus != false) {
             
-            $cart->setId($exist['id'])->setIdUser($userId)->setQuantity($quantity);
+            $cart->setId($cartStatus['id'])->setIdUser($userId)->setQuantity($quantity);
 
             if ($productType == 1) {
-
-
-                $product = new Electronic($productId, $userId);
+                $product = new Electronic($productId, $userId   );
                 $productInfos = $product->findOneById($productId);
-                var_dump($product);
                 var_dump($productInfos);
 
                 $productInfoQty = $productInfos->getQuantity();
+
                 if ($productInfoQty >= $quantity) {
-
-                    if ($exist = $product->existProduct($productId, $userId)) {
-
-                        $cart->addToCart($productId, $userId, $quantity);
+                    $cartInfo = $cart->cartStatus($userId);
+                    if ($product->existProduct(intval($cartInfo["id"]),intval($productId))) {
+                        $product->updateProductCart($cartInfo["id"], $productId, $quantity);
+                    }else{
+                        $product->insertProductCart($cartInfo["id"], $quantity, $productId);
                     }
                 }
             }
@@ -139,14 +137,14 @@ class ShopController
                 $productInfoQty = $productInfos->getQuantity();
                 if ($productInfoQty >= $quantity) {
 
-                    $product->addToCart($productId, $userId, $quantity);
+                    // $product->addToCart($productId, $userId, $quantity);
                 }
             }
         }else{
 
             $cart = new Cart();
             $cart->createCart($userId);
-            $cartInfo = $cart->existCart($userId);
+            $cartInfo = $cart->cartStatus($userId);
             $cart->createDetail($cartInfo["id"],$productId,$quantity );
 
             var_dump($cartInfo);

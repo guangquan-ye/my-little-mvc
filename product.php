@@ -13,10 +13,10 @@ $productInfo = $product->showProduct($productId, $productType);
 
 if(isset($_POST["productQuantity"])){
 
-
-    $quantity = $_POST["productQuantity"];
-    $userId = $_SESSION["user"]["id"];
+    
     $productId = $_GET['productId'];
+    $userId = $_SESSION["user"]["id"];
+    $quantity = $_POST["productQuantity"];
 
     $product->addProductToCart($productId, $userId, $quantity, $productType);
 } 

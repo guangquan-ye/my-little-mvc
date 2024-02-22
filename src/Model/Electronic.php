@@ -201,5 +201,31 @@ class Electronic extends AbstractProduct implements StockableInterface
         return $result;
     }   
 
+    public function updateProductCart($idCart, $idProduct, $quantity){
+
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $statement = $pdo->prepare('UPDATE `detail` SET `id_product`=:idProduct,`quantity`=:quantity WHERE `id_cart`=:idCart');
+        $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
+        $statement->bindParam(':idProduct', $idProduct, \PDO::PARAM_INT);
+        $statement->bindParam(':quantity', $quantity, \PDO::PARAM_INT);
+
+        $statement->execute();
+    
+}
+
+public function insertProductCart($idCart,  $quantity, $idProduct){
+
+    $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop','root', '');
+    $statement = $pdo->prepare('INSERT INTO `detail`(`id_cart`,`quantity`,`id_product`) VALUES (:idCart, :quantity, :idProduct)');
+    $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
+    $statement->bindParam(':quantity', $quantity, \PDO::PARAM_INT);
+    $statement->bindParam(':idProduct', $idProduct, \PDO::PARAM_INT);
+
+    $statement->execute();
+
+}
+
+    
+
 
 }
