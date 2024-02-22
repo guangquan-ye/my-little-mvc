@@ -145,7 +145,8 @@ class ShopController
             $cart = new Cart();
             $cart->createCart($userId);
             $cartInfo = $cart->cartStatus($userId);
-            $cart->createDetail($cartInfo["id"],$productId,$quantity );
+            $cartId = $cartInfo["id"];
+            $cart->createDetail($cartId,$productId,$quantity);
 
             var_dump($cartInfo);
         }

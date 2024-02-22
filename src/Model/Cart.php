@@ -114,14 +114,22 @@ public function createCart($idUser){
 }
 
 
-    public function createDetail($idCart){
+    public function createDetail($cartId,$productId,$quantity){
 
 
         $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
-        $statement = $pdo->prepare('INSERT INTO `detail`(`id_cart`) VALUES (:idCart)');
-        $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
-
+        $statement = $pdo->prepare('INSERT INTO `detail`(`id_cart`, `id_product`, `quantity`) VALUES (:cartId, :productId, :quantity)');
+        $statement->bindParam(':cartId', $cartId, \PDO::PARAM_INT);
+        $statement->bindParam(':productId', $productId, \PDO::PARAM_INT);
+        $statement->bindParam(':quantity', $quantity, \PDO::PARAM_INT);
         $statement->execute();
+
+
+        // $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        // $statement = $pdo->prepare('INSERT INTO `detail`(`id_cart`) VALUES (:idCart)');
+        // $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
+
+        // $statement->execute();
     }
 
 //     public function addToCart($idCart, $idProduct, $quantity){
