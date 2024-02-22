@@ -1,20 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
-use App\Controller\AuthenticationController;
-
-if(isset($_POST['register'])){
-
-    $controller = new AuthenticationController();
-
-    $fullname = $_POST['fullname'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $role = [$_POST['role']];
 
 
-   $controller->registerController($fullname, $email, $password, $role);
-
-}
 
 ?>
 <!DOCTYPE html>

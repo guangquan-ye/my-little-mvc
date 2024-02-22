@@ -84,7 +84,7 @@ class AuthenticationController
         $user->setFullname($fullname);
         $user->setEmail($email);
         $user->setPassword($password);
-        $user->setRole($role);
+        $user->setRole([$role]);
 
         $userInfo = $user->select();
 
@@ -130,7 +130,6 @@ class AuthenticationController
 
                 header('Location: shop.php');
 
-                var_dump($_SESSION["user"]);
             } else {
                 echo "Login failed";
             }

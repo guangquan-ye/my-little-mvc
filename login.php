@@ -1,16 +1,6 @@
 <?php
 require_once 'vendor/autoload.php';
-use App\Controller\AuthenticationController;
 
-if(isset($_POST['login'])){
-
-    $controller = new AuthenticationController();
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    
-    $controller->loginController($email, $password);
-
-}
 
 ?>
 
@@ -23,7 +13,7 @@ if(isset($_POST['login'])){
 </head>
 <body>
     
-<form method="post">
+<form method="post" target="login">
     <input type="email" name="email" placeholder="Email">
     <input type="password" name="password" placeholder="Password">
     <input type="submit" name="login" value="login">

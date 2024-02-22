@@ -73,7 +73,7 @@ class User
     }
 
     public function findOneByEmail(int $id){
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'root');
         $sql = "SELECT * FROM user WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
@@ -84,7 +84,7 @@ class User
     }
 
     public function profilInfo($id){
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'root');
         $sql = "SELECT `fullname`, `email`, `role` FROM user WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':id', $id, \PDO::PARAM_STR);
@@ -97,7 +97,7 @@ class User
     
 
     public function findAll(): array{
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'root');
         $sql = "SELECT * FROM user";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
@@ -106,7 +106,7 @@ class User
     }
 
     public function create(): static{
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'root');
         $sql = "INSERT INTO user (fullname, email, password, role) VALUES (:fullname, :email, :password, :role)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':fullname', $this->getFullname(), \PDO::PARAM_STR);
@@ -138,7 +138,7 @@ class User
 
     public function select(){
 
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'root');
         $sql = "SELECT * FROM user WHERE email = :email";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':email', $this->getEmail(), \PDO::PARAM_STR);

@@ -45,7 +45,6 @@ use App\Controller\ShopController;
 
 
     <?php
-var_dump($_SESSION);
 // --------------------------------- Item display by page  ------------------------
 
 
