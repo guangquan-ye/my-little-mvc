@@ -89,7 +89,7 @@ class Cart
 
     public function cartStatus($idUser){
 
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'bouba');
         $statement = $pdo->prepare('SELECT * FROM cart WHERE id_user = :idUser');
         $statement->bindParam(':idUser', $idUser, \PDO::PARAM_INT);
         $statement->execute();
@@ -103,7 +103,7 @@ class Cart
 
 public function createCart($idUser){
 
-    $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+    $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'bouba');
     
     $statement = $pdo->prepare('INSERT INTO `cart`(`id_user`, `creation_date`) VALUES (:idUser, NOW())');
 
@@ -117,7 +117,7 @@ public function createCart($idUser){
     public function createDetail($cartId,$productId,$quantity){
 
 
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'bouba');
         $statement = $pdo->prepare('INSERT INTO `detail`(`id_cart`, `id_product`, `quantity`) VALUES (:cartId, :productId, :quantity)');
         $statement->bindParam(':cartId', $cartId, \PDO::PARAM_INT);
         $statement->bindParam(':productId', $productId, \PDO::PARAM_INT);

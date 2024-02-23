@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
-session_start();
+//session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once 'vendor/autoload.php';
 
 use App\Model\User;
@@ -21,6 +25,7 @@ class AuthenticationController
         ?string $password = null,
         ?array $role = null
     ) {
+
         $this->fullname = $fullname;
         $this->email = $email;
         $this->password = $password;
@@ -84,7 +89,7 @@ class AuthenticationController
         $user->setFullname($fullname);
         $user->setEmail($email);
         $user->setPassword($password);
-        $user->setRole($role);
+        $user->setRole([$role]);
 
         $userInfo = $user->select();
 
@@ -130,13 +135,13 @@ class AuthenticationController
 
                 header('Location: shop.php');
 
-                var_dump($_SESSION["user"]);
             } else {
                 echo "Login failed";
             }
-        } else {
-            echo "Login failed";
-        }
+        } 
+       // else {
+        //     echo "Login failed";
+        // }
     }
 
 
@@ -173,7 +178,7 @@ class AuthenticationController
         $user->setFullname($fullname);
         $user->setEmail($email);
         $user->setPassword($password);
-        $user->setRole($role);
+        $user->setRole([$role]);
         $user->update();
     }
 }

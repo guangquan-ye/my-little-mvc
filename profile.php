@@ -5,7 +5,7 @@ use App\Controller\AuthenticationController;
 
 $authController = new AuthenticationController;
 $userInfo = $authController->profile();
-var_dump($userInfo);
+//var_dump($userInfo);
 
 
 if(isset($_POST['form_submit'])){

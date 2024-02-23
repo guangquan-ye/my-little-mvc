@@ -59,7 +59,7 @@ class Electronic extends AbstractProduct implements StockableInterface
 
     public function findOneById(int $id): static|false
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'bouba');
 
         $statement = $pdo->prepare('SELECT * FROM product INNER JOIN electronic ON product.id = electronic.product_id WHERE product.id = :id');
 
@@ -90,7 +90,7 @@ class Electronic extends AbstractProduct implements StockableInterface
 
     public function findAll(): array
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'bouba');
 
         $statement = $pdo->prepare('SELECT * FROM product INNER JOIN electronic ON product.id = electronic.product_id');
 
@@ -121,7 +121,7 @@ class Electronic extends AbstractProduct implements StockableInterface
 
     public function create(): static
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'bouba');
 
         $sql = "INSERT INTO product (name, photos, price, description, quantity, category_id, created_at, updated_at) VALUES (:name, :photos, :price, :description, :quantity, :category_id, :created_at, :updated_at)";
 
@@ -155,7 +155,7 @@ class Electronic extends AbstractProduct implements StockableInterface
 
     public function update(): static
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'bouba');
 
         $sql = "UPDATE product SET name = :name, photos = :photos, price = :price, description = :description, quantity = :quantity, category_id = :category_id, updated_at = :updated_at WHERE id = :id";
 
@@ -187,7 +187,7 @@ class Electronic extends AbstractProduct implements StockableInterface
 
     public function existProduct($idCart, $idProduct)
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'bouba');
 
         $statement = $pdo->prepare('SELECT * FROM detail WHERE id_cart = :idCart AND id_product = :idProduct');
 
@@ -203,7 +203,7 @@ class Electronic extends AbstractProduct implements StockableInterface
 
     public function updateProductCart($idCart, $idProduct, $quantity){
 
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'bouba');
         $statement = $pdo->prepare('SELECT `quantity` FROM `detail` WHERE `id_cart`=:idCart');
         $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
         $statement->execute();
@@ -212,7 +212,7 @@ class Electronic extends AbstractProduct implements StockableInterface
         $quantity = $quantityBdd['quantity'] + $quantity;
 
         
-        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'bouba');
         $statement = $pdo->prepare('UPDATE `detail` SET `id_product`=:idProduct,`quantity`=:quantity WHERE `id_cart`=:idCart');
         $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
         $statement->bindParam(':idProduct', $idProduct, \PDO::PARAM_INT);
@@ -224,7 +224,7 @@ class Electronic extends AbstractProduct implements StockableInterface
 
 public function insertProductCart($idCart,  $quantity, $idProduct){
 
-    $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop','root', '');
+    $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop','root', 'bouba');
     $statement = $pdo->prepare('INSERT INTO `detail`(`id_cart`,`quantity`,`id_product`) VALUES (:idCart, :quantity, :idProduct)');
     $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
     $statement->bindParam(':quantity', $quantity, \PDO::PARAM_INT);
@@ -235,7 +235,7 @@ public function insertProductCart($idCart,  $quantity, $idProduct){
 }
 
 public function checkStock($idCart, $idProduct) {
-    $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+    $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', 'bouba');
     
     $statement = $pdo->prepare('SELECT SUM(quantity) AS total_quantity FROM detail WHERE id_cart = :idCart  AND id_product = :idProduct');
     $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);

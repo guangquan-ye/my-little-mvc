@@ -10,8 +10,11 @@ if (isset($_SESSION)) {
 
 use App\Controller\ShopController;
 
+//$shop = new ShopController();
+$currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+//$currentPage = $_GET['page'];
+//$paginated = $shop->index($currentPage);
 $shop = new ShopController();
-$currentPage = $_GET['page'];
 $paginated = $shop->index($currentPage);
 ?>
 <!DOCTYPE html>
