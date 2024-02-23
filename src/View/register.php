@@ -25,6 +25,9 @@ if(isset($_POST['register'])){
     <title>Register form</title>
 </head>
 <body>
+<?php
+require_once "header.php";
+    ?>
     <form  method="post">
         <input type="text" name="fullname" placeholder="Fullname">
         <input type="email" name="email" placeholder="Email">

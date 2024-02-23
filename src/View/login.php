@@ -22,7 +22,9 @@ if(isset($_POST['login'])){
     <title>Login form</title>
 </head>
 <body>
-    
+<?php
+require_once "header.php";
+    ?>
 <form method="post">
     <input type="email" name="email" placeholder="Email">
     <input type="password" name="password" placeholder="Password">

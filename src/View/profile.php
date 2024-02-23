@@ -27,7 +27,9 @@ if(isset($_POST['form_submit'])){
     <title>Profile</title>
 </head>
 <body>
-
+<?php
+require_once "header.php";
+    ?>
 <h1>User Information</h1>
     
     <ul>

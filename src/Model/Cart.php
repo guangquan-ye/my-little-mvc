@@ -125,23 +125,64 @@ public function createCart($idUser){
         $statement->execute();
 
 
-        // $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
-        // $statement = $pdo->prepare('INSERT INTO `detail`(`id_cart`) VALUES (:idCart)');
-        // $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
 
-        // $statement->execute();
     }
 
-//     public function addToCart($idCart, $idProduct, $quantity){
 
-//         $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
-//         $statement = $pdo->prepare('UPDATE `detail` SET `id_product`=:idProduct,`quantity`=:quantity WHERE `id_cart`=:idCart');
-//         $statement->bindParam(':idCart', $idCart, \PDO::PARAM_INT);
-//         $statement->bindParam(':idProduct', $idProduct, \PDO::PARAM_INT);
-//         $statement->bindParam(':quantity', $quantity, \PDO::PARAM_INT);
-
-//         $statement->execute();
+    public function findOneDetailById(int $idCart, int $userId): array|false
+    {
+        $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+        $sql = "SELECT detail.*, product.name, product.price, product.photos, product.description, product.quantity as stock
+        FROM detail 
+        INNER JOIN cart ON detail.id_cart = cart.id
+        INNER JOIN product ON detail.id_product = product.id
+        WHERE detail.id_cart = :idCart AND cart.id_user = :userId AND product.id = detail.id_product";
+        $statement = $pdo->prepare($sql);
+        $statement->bindValue(':idCart', $idCart);
+        $statement->bindValue(':userId', $userId);
+        $statement->execute();
+        $detail = $statement->fetchAll(\PDO::FETCH_ASSOC);
     
+        return $detail;
+    }
+    
+}
+
+// public function findAllProductDetail(int $userId): array
+// {
+//     $cart = $this->cartStatus($userId);
+
+//     if (!$cart) {
+//         return []; // Aucun panier trouvé pour cet utilisateur
+//     }
+
+//     $pdo = new \PDO('mysql:host=localhost;dbname=draft-shop', 'root', '');
+//     $sql = "SELECT detail.* 
+//             FROM detail 
+//             WHERE detail.id_cart = :cartId";
+//     $statement = $pdo->prepare($sql);
+//     $statement->bindValue(':cartId', $cart['id'], \PDO::PARAM_INT);
+//     $statement->execute();
+//     $details = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+//     $productsDetails = [];
+//     foreach ($details as $detail) {
+//         $productsDetails[] = new static(
+//             $detail['id'],
+//             $detail['id_cart'],
+//             $detail['id_product'],
+//             $detail['quantity'],
+//             new \DateTime($detail['created_at']),
+//             $detail['updated_at'] ? (new \DateTime($detail['updated_at'])) : null
+//         );
+//     }
+
+//     return $productsDetails;
 // }
 
-}
+
+
+
+
+
+
