@@ -105,7 +105,7 @@ class ShopController
     public function addProductToCart($productId, $userId, $quantity, $productType)
     {
 
-        $cart = new Cart();
+        $cart = new Cart($userId);
         $cartStatus = $cart->cartStatus($userId);
 
         var_dump($cartStatus);

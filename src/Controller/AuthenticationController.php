@@ -118,13 +118,6 @@ class AuthenticationController
             if (password_verify($password, $userInfo["password"])) {
                 echo "Login success";
 
-                // $_SESSION["user"]['isLogged'] = true;
-                // $_SESSION['id'] = $userInfo['id'];
-                // $_SESSION['fullname'] = $userInfo['fullname'];
-                // $_SESSION['email'] = $userInfo['email'];
-                // $_SESSION['role'] = $userInfo['role'];
-
-
                 $_SESSION["user"] = [
                     'isLogged' => true,
                     'id' => $userInfo['id'],
@@ -133,7 +126,7 @@ class AuthenticationController
                     'role' => $userInfo['role']
                 ];
 
-                header('Location: shop.php');
+                header('Location: shop.php?page=1');
 
             } else {
                 echo "Login failed";
@@ -161,7 +154,7 @@ class AuthenticationController
         
         }
         else{
-            header('Location: shop.php');
+            header('Location: shop.php?page=1');
 
         }
 

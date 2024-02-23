@@ -35,7 +35,9 @@ if(isset($_POST["productQuantity"])){
 </head>
 
 <body>
-
+<?php
+require_once "header.php";
+    ?>
 <form method="post">
     <label for="productQuantity">Nombre de produits:</label>
     <input type="number" id="productQuantity" name="productQuantity">
