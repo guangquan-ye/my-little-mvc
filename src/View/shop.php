@@ -11,8 +11,14 @@ if (isset($_SESSION)) {
 use App\Controller\ShopController;
 
 $shop = new ShopController();
-$currentPage = $_GET['page'];
-$paginated = $shop->index($currentPage);
+if(isset($_GET['page'])){
+    $currentPage = $_GET['page'];
+    $paginated = $shop->index($currentPage);
+
+}else{
+    $paginated = $shop->index(1);
+    $currentPage = "1";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +27,6 @@ $paginated = $shop->index($currentPage);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
-    <a href="./">Home</a>
 
 </head>
 
@@ -51,7 +56,7 @@ require_once "header.php";
 
     <br><div class="pagination">
     <?php if ($currentPage > 1): ?>
-        <a href="/my-little-mvc/shop.php?page=<?php echo ($currentPage - 1); ?>">&laquo; Précédent</a>
+        <a href="/my-little-mvc/shop.php?<?php echo ($currentPage - 1); ?>">&laquo; Précédent</a>
     <?php endif; ?>
     
     <?php for ($i = 1; $i <= $paginated['totalPages']; $i++): ?>
@@ -73,7 +78,7 @@ require_once "header.php";
 //     echo "<div class='trucInfo'>" . "item name:" . $product->getName() . "</div>";
 //     echo "<div class='trucInfo' >" . " item price:" . $product->getPrice() . "</div>";
 //     echo "<div class='trucInfo' >" . "item description:" . $product->getDescription() . "</div>";
-//     echo "<div class='trucInfo' >" . "item quantity:" . $product->getQuantity() . "</div>";
+//     echo "<div class='trucInfo' >" . "item quantity:" . $productz->getQuantity() . "</div>";
 //     echo "<div class='trucInfo' >" . "item id category:" . $product->getCategoryId() . "</div>";
 //     echo "<a href='/my-little-mvc/product.php?productId=" . $product->getId() ."&productType=".$product->getCategoryId(). "'>Voir détails du produit</a>";
 //     echo "</div>";

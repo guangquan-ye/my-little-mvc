@@ -10,18 +10,39 @@ $router->setBasePath('/my-little-mvc');
 // -------------------------------------Route en GET-------------------------------------
 $router->map( 'GET', '/', function() {
     require './src/View/home.php';
-});
+},   'homePage');
 
 
 $router->map( 'GET', '/login', function() {
     require './src/View/login.php';
 
-});
+}, 'loginForm');
+ 
 
 $router->map( 'GET', '/register', function() {
     require './src/View/register.php';
 
-});
+}, 'registerForm');
+
+$router->map( 'GET', '/shop', function() {
+    require './src/View/shop.php';
+
+}, 'shop');
+
+
+// $router->map( 'GET', '/shop/[i:id]', function($id) {
+//     require './src/View/shop.php';
+
+// }, 'shopByID');
+
+
+
+
+// $router->map( 'GET', '/shop', function() {
+//     require './src/View/shop.php';
+
+// }, 'shop');
+
 
 
 // -------------------------------------Route en GET-------------------------------------
