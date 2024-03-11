@@ -121,7 +121,7 @@ class AuthenticationController
                     'role' => $userInfo['role']
                 ];
 
-                header('Location: shop.php?page=1');
+                header("location: /my-little-mvc/");
 
                 var_dump($_SESSION["user"]);
             } else {
@@ -169,6 +169,14 @@ class AuthenticationController
         $user->setRole($role);
         $user->update();
     }
+
+
+    public function logout()
+    {
+        session_destroy();
+        header("Location: /my-little-mvc/");
+    }
+
 }
 
 

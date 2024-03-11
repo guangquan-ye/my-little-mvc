@@ -1,3 +1,8 @@
+<?php
+if(!isset($_SESSION)){
+    session_start();
+}
+?>
 <header id="header">
     <div class="top_nav">
         <div class="headerz" >

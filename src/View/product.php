@@ -4,11 +4,11 @@ session_start();
 use App\Controller\ShopController;
 
 
-$productId = $_GET['productId'];
-$productType = $_GET['productType'];
+// $productId = $_GET['productId'];
+// $productType = $_GET['productType'];
 
-$product = new ShopController();
-$productInfo = $product->showProduct($productId, $productType);
+// $product = new ShopController();
+// $productInfo = $product->showProduct($productId, $productType);
 
 
 if(isset($_POST["productQuantity"])){

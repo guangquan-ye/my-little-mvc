@@ -43,7 +43,9 @@ require_once "header.php";
         <div class='trucInfo'>item description: <?php echo $product->getDescription(); ?></div>
         <div class='trucInfo'>item quantity: <?php echo $product->getQuantity(); ?></div>
         <div class='trucInfo'>item id category: <?php echo $product->getCategoryId(); ?></div>
-        <a href='/my-little-mvc/product.php?productId=<?php echo $product->getId(); ?>&productType=<?php echo $product->getCategoryId(); ?>'>Voir détails du produit</a>
+        <a href='/my-little-mvc/shop?productId=<?php echo $product->getId(); ?>&productType=<?php echo $product->getCategoryId(); ?>'>Voir détails du produit</a>
+
+        
     </div>
 <?php endforeach; ?>
 

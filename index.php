@@ -2,6 +2,8 @@
 require_once 'vendor/autoload.php';
 
 use App\Controller\AuthenticationController;
+use App\Controller\ShopController;
+$shopController = new ShopController();
 $router = new AltoRouter();
 
 $router->setBasePath('/my-little-mvc');
@@ -30,18 +32,21 @@ $router->map( 'GET', '/shop', function() {
 }, 'shop');
 
 
-// $router->map( 'GET', '/shop/[i:id]', function($id) {
-//     require './src/View/shop.php';
+$router->map( 'GET', '/logout', function() {
+    $controller = new AuthenticationController();
+    $controller->logout();
 
-// }, 'shopByID');
+}, 'logout');
 
 
+$router->map('GET', '/shop/[i:id]/[a:type]', function($id, $type) {
+    $shopController = new ShopController();
+    $shopController->showProduct($id, $type);
 
+    
+    require './src/View/product.php';
+}, 'shopByID');
 
-// $router->map( 'GET', '/shop', function() {
-//     require './src/View/shop.php';
-
-// }, 'shop');
 
 
 
@@ -52,7 +57,7 @@ $router->map( 'GET', '/shop', function() {
 // -------------------------------------Route en POST-------------------------------------
 
 
-$router->map( 'POST', '/', function() {
+$router->map( 'POST', '/login', function() {
 
     $controller = new AuthenticationController();
     $email = $_POST['email'];
@@ -73,6 +78,6 @@ $match = $router->match();
 if(is_array($match) && is_callable($match['target'])) {
 	call_user_func_array($match['target'], $match['params']);
 } else {
-	// // no route was matched
-	// header( $_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
+	// no route was matched
+	header( $_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
 }
